@@ -1,0 +1,67 @@
+/* Overlay */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 999;
+}
+
+.menu-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Side Drawer */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 100vh;
+  background: #0f0f10;
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1000;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Open state */
+.side-menu.open {
+  transform: translateX(0);
+}
+
+/* Close button */
+.close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #d4af37;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Links */
+.menu-links {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.menu-links a {
+  color: #ffffff;
+  font-size: 20px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.menu-links a:hover {
+  color: #d4af37;
+}

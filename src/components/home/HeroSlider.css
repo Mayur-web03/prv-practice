@@ -1,0 +1,61 @@
+.hero {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 6s ease;
+  transform: scale(1.05);
+}
+
+/* Dark luxury overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(15, 15, 16, 0.85),
+    rgba(15, 15, 16, 0.3)
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  padding: 0 80px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-content h1 {
+  font-size: 52px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.hero-content p {
+  color: var(--muted);
+  font-size: 18px;
+  margin-bottom: 32px;
+}
+
+.hero-content button {
+  padding: 14px 34px;
+  font-size: 15px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-content button:hover {
+  background: var(--gold);
+  color: var(--black);
+}
