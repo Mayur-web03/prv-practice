@@ -1,28 +1,48 @@
 import { useState, useEffect } from "react";
 import "./HeroSlider.css";
+import slider1 from "../../assets/images/hero/slider1.png";
+import slider2 from "../../assets/images/hero/slider2.png";
+import slider3 from "../../assets/images/hero/slider3.png";
+import slider4 from "../../assets/images/hero/slider4.png";
+import slider5 from "../../assets/images/hero/slider5.png";
 
 const slides = [
   {
-    image: "/src/assets/images/hero/slider1.png",
+    image: slider1,
     title: "Precision Engineering",
-    subtitle: "Innovative solutions built with expertise and care"
+    subtitle: "Innovative solutions built with expertise and care",
   },
   {
-    image: "/src/assets/images/hero/slider2.png",
+    image: slider2,
     title: "Health with Water",
-    subtitle: "Supporting everyday wellness through intelligent hydration"
-  }
+    subtitle: "Supporting everyday wellness through intelligent hydration",
+  },
+  {
+    image: slider3,
+    title: "Modern Bathroom Solutions",
+    subtitle: "Designed for comfort and durability",
+  },
+  {
+    image: slider4,
+    title: "Premium Shower Experience",
+    subtitle: "Luxury design with flawless performance",
+  },
+  {
+    image: slider5,
+    title: "Elegant Basin Fittings",
+    subtitle: "Minimal design with maximum functionality",
+  },
 ];
 
 const HeroSlider = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setIndex((i) => (i + 1) % slides.length),
-      5000
-    );
-    return () => clearInterval(timer);
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
