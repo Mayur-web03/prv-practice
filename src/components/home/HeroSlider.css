@@ -1,61 +1,208 @@
+/* =========================================================
+   Hero — crossfading slides, one primary CTA
+   ========================================================= */
 .hero {
-  height: 100vh;
+  --hero-fade: 700ms;
   position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  max-height: 1000px;
   overflow: hidden;
+  background: var(--color-footer);
+  color: var(--color-ivory);
 }
 
-.hero-bg {
+.hero-slide {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 6s ease;
-  transform: scale(1.05);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--hero-fade) var(--ease-standard),
+    visibility var(--hero-fade);
+}
+.hero-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Dark luxury overlay */
+/* Slow settle zoom on the incoming image */
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 7s linear;
+}
+.hero-slide.is-active .hero-image {
+  transform: scale(1);
+}
+
+/* Legibility: dark on the text side, lighter on the product side */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to right,
-    rgba(15, 15, 16, 0.85),
-    rgba(15, 15, 16, 0.3)
+    90deg,
+    rgba(20, 22, 20, 0.8) 0%,
+    rgba(20, 22, 20, 0.45) 48%,
+    rgba(20, 22, 20, 0.08) 100%
   );
 }
 
-.hero-content {
+/* ---------- Copy ---------- */
+.hero-copy {
   position: relative;
   z-index: 2;
-  max-width: 620px;
-  padding: 0 80px;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding-top: var(--header-height);
+  padding-bottom: calc(var(--space-9) + var(--space-3));
 }
 
-.hero-content h1 {
-  font-size: 52px;
-  font-weight: 500;
-  margin-bottom: 14px;
+.hero .eyebrow {
+  color: var(--color-brass);
 }
 
-.hero-content p {
-  color: var(--muted);
-  font-size: 18px;
-  margin-bottom: 32px;
+.hero-title {
+  max-width: 14ch;
+  font-size: var(--text-hero);
+  color: var(--color-ivory);
 }
 
-.hero-content button {
-  padding: 14px 34px;
-  font-size: 15px;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+.hero-subtitle {
+  max-width: 44ch;
+  margin-top: var(--space-4);
+  font-size: var(--text-lg);
+  color: rgba(245, 241, 233, 0.92);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* Staggered reveal when a slide becomes active */
+.hero-copy > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--motion-slow) var(--ease-standard),
+    transform var(--motion-slow) var(--ease-standard);
+}
+.hero-slide.is-active .hero-copy > * {
+  opacity: 1;
+  transform: none;
+}
+.hero-slide.is-active .hero-copy > :nth-child(1) { transition-delay: 150ms; }
+.hero-slide.is-active .hero-copy > :nth-child(2) { transition-delay: 250ms; }
+.hero-slide.is-active .hero-copy > :nth-child(3) { transition-delay: 350ms; }
+.hero-slide.is-active .hero-copy > :nth-child(4) { transition-delay: 450ms; }
+
+/* ---------- Controls ---------- */
+.hero-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-6);
+  z-index: 3;
+}
+
+.hero-controls-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.hero-pause {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(20, 22, 20, 0.35);
+  border: 1px solid rgba(245, 241, 233, 0.7);
+  border-radius: 50%;
+  color: var(--color-ivory);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color var(--motion-fast) var(--ease-standard);
+}
+.hero-pause:hover {
+  background: rgba(20, 22, 20, 0.6);
+}
+.hero-pause svg {
+  fill: currentColor;
 }
 
-.hero-content button:hover {
-  background: var(--gold);
-  color: var(--black);
+.hero-dots {
+  display: flex;
+  align-items: center;
+}
+
+/* 28px hit area, small visible dot; the active one is a longer pill */
+.hero-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.hero-dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(245, 241, 233, 0.6);
+  transition:
+    width var(--motion-base) var(--ease-standard),
+    background-color var(--motion-fast) var(--ease-standard);
+}
+.hero-dot:hover::before {
+  background: var(--color-ivory);
+}
+.hero-dot[aria-current="true"]::before {
+  width: 28px;
+  background: var(--color-ivory);
+}
+
+/* ---------- Mobile: text sits low, gradient rises from the bottom ---------- */
+@media (max-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(20, 22, 20, 0.88) 0%,
+      rgba(20, 22, 20, 0.55) 55%,
+      rgba(20, 22, 20, 0.15) 100%
+    );
+  }
+
+  .hero-copy {
+    justify-content: flex-end;
+    padding-bottom: calc(var(--space-9) - var(--space-2));
+  }
+
+  .hero-title {
+    max-width: 12ch;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-base);
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 auto;
+    padding-inline: var(--space-4);
+  }
 }
