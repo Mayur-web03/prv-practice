@@ -1,36 +1,35 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./CategorySection.css";
-
-import bath from "../../assets/images/categories/bath.png";
-import mixers from "../../assets/images/categories/mixers.png";
-import crafts from "../../assets/images/categories/crafts.png";
-import wellness from "../../assets/images/categories/wellness.png";
-
-const categories = [
-  { title: "Bath Fittings", image: bath, path: "bath-fittings" },
-  { title: "PRV Mixers", image: mixers, path: "mixers" },
-  { title: "PRV Crafts", image: crafts, path: "crafts" },
-  { title: "Health & Wellness", image: wellness, path: "wellness" },
-];
+import categories from "../../data/categories";
 
 const CategorySection = () => {
-  const navigate = useNavigate();
-
   return (
-    <section className="category-section">
-      {categories.map((cat) => (
-        <div
-          key={cat.title}
-          className="category-card"
-          onClick={() => navigate(`/catalogue/${cat.path}`)}
-        >
-          <img src={cat.image} alt={cat.title} />
-          <div className="category-overlay">
-            <h3>{cat.title}</h3>
-            <span>Explore →</span>
-          </div>
+    <section className="section" aria-labelledby="categories-title">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Collections</span>
+          <h2 id="categories-title" className="section-title">
+            Explore by category
+          </h2>
+          <p className="section-lead">Browse the PRV range by category.</p>
         </div>
-      ))}
+
+        <ul className="category-grid">
+          {categories.map((cat) => (
+            <li key={cat.slug}>
+              <Link to={`/catalogue/${cat.slug}`} className="category-card">
+                <span className="category-media frame">
+                  <img src={cat.image} alt="" loading="lazy" decoding="async" />
+                </span>
+                <span className="category-title">{cat.title}</span>
+                <span className="category-cta">
+                  Explore <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 };
