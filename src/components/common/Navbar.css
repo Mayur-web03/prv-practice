@@ -1,100 +1,305 @@
-/* ===== NAVBAR BASE ===== */
+/* =========================================================
+   Navbar — transparent over the home hero, solid elsewhere
+   ========================================================= */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
+  right: 0;
   z-index: 1000;
+  height: var(--header-height);
+  color: var(--color-ink);
+}
 
+/* Background layers fade with opacity (cheap to animate) */
+.navbar::before,
+.navbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition:
+    opacity var(--motion-base) var(--ease-standard),
+    box-shadow var(--motion-base) var(--ease-standard);
+}
+
+.navbar::before {
+  background: rgba(245, 241, 233, 0.96);
+  border-bottom: 1px solid var(--color-border);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.navbar::after {
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0)
+    rgba(32, 36, 32, 0.7),
+    rgba(32, 36, 32, 0)
   );
-
-  transition: background 0.4s ease,
-              box-shadow 0.4s ease,
-              border-bottom 0.4s ease;
+  opacity: 0;
 }
 
-/* ===== NAVBAR ON SCROLL ===== */
-.navbar.scrolled {
-  background: rgba(15, 15, 15, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+.navbar.is-scrolled::before {
+  box-shadow: var(--shadow-sm);
 }
 
-/* ===== MENU BUTTON ===== */
-.navbar-menu {
-  background: none;
-  border: none;
-  color: #d4af37;
-  font-size: 26px;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
+.navbar--overlay {
+  color: var(--color-ivory);
+}
+.navbar--overlay::before {
+  opacity: 0;
+}
+.navbar--overlay::after {
+  opacity: 1;
 }
 
-.navbar-menu:hover {
-  transform: scale(1.1);
-  color: #ffd700;
+/* Light focus ring only while sitting on the photo */
+.navbar--overlay :focus-visible {
+  outline-color: var(--color-ivory);
+}
+.navbar--overlay .nav-panel :focus-visible {
+  outline-color: var(--color-focus);
 }
 
-/* ===== LOGO ===== */
+/* ---------- Layout ---------- */
+.navbar-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: "toggle logo cta";
+  align-items: center;
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.navbar-toggle {
+  grid-area: toggle;
+  justify-self: start;
+}
 .navbar-logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  grid-area: logo;
+  display: block;
+}
+.navbar .navbar-cta {
+  grid-area: cta;
+  justify-self: end;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-xs);
+}
+.navbar-links {
+  display: none;
 }
 
 .navbar-logo img {
-  height: 42px;
-  transition:
-    transform 1.8s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.4s ease;
+  height: 44px;
+  width: auto;
 }
 
+/* Short CTA label on narrow screens so it never wraps */
+.cta-long {
+  display: none;
+}
 
-/* ===== FIND DEALER BUTTON ===== */
-.navbar-cta {
-  padding: 6px 20px;
-  border-radius: 22px;
-  border: 1px solid #d4af37;
-  background: transparent;
-  color: #d4af37;
-  font-size: 14px;
-  font-weight: 500;
+/* ---------- Hamburger ---------- */
+.navbar-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;
+  background: none;
+  border: 0;
+  color: inherit;
   cursor: pointer;
-
-  transition: background 0.3s ease,
-              color 0.3s ease,
-              box-shadow 0.3s ease;
 }
 
-.navbar-cta:hover {
-  background: #d4af37;
-  color: #0f0f0f;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+.navbar-toggle-bars,
+.navbar-toggle-bars::before,
+.navbar-toggle-bars::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+.navbar-toggle-bars {
+  position: relative;
+}
+.navbar-toggle-bars::before,
+.navbar-toggle-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.navbar-toggle-bars::before {
+  top: -7px;
+}
+.navbar-toggle-bars::after {
+  top: 7px;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0 18px;
+/* ---------- Links ---------- */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-2) 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Underline = hover, focus AND active state (not colour alone) */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-base) var(--ease-standard);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.is-active::after,
+.nav-dropdown-trigger[aria-expanded="true"]::after {
+  transform: scaleX(1);
+}
+
+.nav-chevron {
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--motion-fast) var(--ease-standard);
+}
+.nav-dropdown-trigger[aria-expanded="true"] .nav-chevron {
+  transform: rotate(225deg) translateY(-2px);
+}
+
+/* ---------- Products dropdown ---------- */
+.nav-dropdown {
+  position: relative;
+}
+
+/* padding-top bridges the gap so the hover state is not lost */
+.nav-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding-top: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 6px);
+  transition:
+    opacity var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard),
+    visibility var(--motion-fast);
+}
+.nav-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.nav-panel-inner {
+  list-style: none;
+  min-width: 240px;
+  padding: var(--space-2);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-panel-link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color var(--motion-fast) var(--ease-standard);
+}
+.nav-panel-link:hover,
+.nav-panel-link:focus-visible {
+  background: var(--color-ivory);
+}
+.nav-panel-link.is-active {
+  border-left-color: var(--color-brass-dark);
+  font-weight: 600;
+}
+
+/* ---------- On the photo, the CTA is light ---------- */
+.navbar--overlay .navbar-cta {
+  background: var(--color-ivory);
+  color: var(--color-olive);
+}
+.navbar--overlay .navbar-cta:hover {
+  background: var(--color-surface);
+}
+
+@media (min-width: 480px) {
+  .cta-long {
+    display: inline;
+  }
+  .cta-short {
+    display: none;
+  }
+  .navbar-logo img {
+    height: 48px;
+  }
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 960px) {
+  .navbar-inner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo links cta";
+    column-gap: var(--space-7);
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+
+  .navbar-links {
+    grid-area: links;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .navbar-logo {
+    margin-left: -26px; /* the logo PNG has built-in side padding */
   }
 
   .navbar-logo img {
-    height: 36px;
+    height: 56px;
   }
 
-  .navbar-cta {
-    font-size: 13px;
-    padding: 5px 14px;
+  .navbar .navbar-cta {
+    padding: 0 var(--space-5);
+    font-size: var(--text-sm);
   }
 }
