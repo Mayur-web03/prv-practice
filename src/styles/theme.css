@@ -1,19 +1,75 @@
+/* =========================================================
+   PRV — Design tokens (Phase 1)
+   Single source of truth for colour, type, spacing, motion.
+   ========================================================= */
 :root {
+  /* ---- Colour ---- */
+  --color-ivory: #f5f1e9;
+  --color-surface: #ffffff;
+  --color-stone: #e7e0d5;
+  --color-olive: #343b34;
+  --color-olive-hover: #232823;
+  --color-ink: #292b29;
+  --color-muted: #666b64;
+  --color-brass: #b49a73;
+  --color-brass-dark: #80643a;
+  --color-border: #ded8ce;
+  --color-footer: #202420;
+  --color-footer-text: #f5f1e9;
+  --color-focus: #80643a;
+
+  /* ---- Typography ---- */
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.6rem + 2.6vw, 3.75rem);
+  --text-hero: clamp(2.5rem, 1.6rem + 4vw, 5rem);
+
+  --leading-tight: 1.15;
+  --leading-body: 1.65;
+
+  /* ---- Spacing scale (4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --header-height: 72px;
+
+  /* ---- Shape & elevation ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --button-height: 48px;
+  --shadow-sm: 0 1px 2px rgba(41, 43, 41, 0.06);
+  --shadow-md: 0 8px 24px rgba(41, 43, 41, 0.1);
+
+  /* ---- Motion ---- */
+  --motion-fast: 180ms;
+  --motion-base: 260ms;
+  --motion-slow: 500ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* ---- LEGACY aliases (existing dark-theme CSS still uses these).
+         Remove in Phases 2–4 once Navbar/Hero/Category/Footer are migrated. ---- */
   --black: #0f0f10;
   --dark-gray: #1a1a1d;
   --gold: #d4af37;
   --gold-soft: #e6c768;
   --white: #f5f5f5;
   --muted: #b5b5b5;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
-  background-color: var(--black);
-  color: var(--white);
 }
