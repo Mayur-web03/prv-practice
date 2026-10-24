@@ -1,44 +1,54 @@
-import "./Footer.css";
 import { Link } from "react-router-dom";
+import "./Footer.css";
+import { productLinks, primaryLinks } from "../../data/navigation";
 
 const Footer = () => {
   return (
-    <footer
-      style={{
-        background: "#0a0a0a",
-        color: "#aaa",
-        padding: "60px 6%",
-        borderTop: "1px solid rgba(255,255,255,0.1)",
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3,1fr)",
-          gap: "40px",
-        }}
-      >
-        <div>
-          <h4 style={{ color: "#d4af37" }}>PRV</h4>
-          <p>Precision. Craft. Trust.</p>
+    <footer className="footer on-dark">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <Link to="/" className="footer-wordmark">
+              PRV
+            </Link>
+            <p className="footer-tagline">Precision. Craft. Trust.</p>
+          </div>
+
+          <nav aria-labelledby="footer-products">
+            <h2 id="footer-products" className="footer-heading">
+              Products
+            </h2>
+            <ul className="footer-list">
+              {productLinks.map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to} className="footer-link">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-labelledby="footer-support">
+            <h2 id="footer-support" className="footer-heading">
+              Support
+            </h2>
+            <ul className="footer-list">
+              {primaryLinks.map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to} className="footer-link">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <div>
-          <h4>Quick Links</h4>
-          <p>Become Dealer</p>
-          <p>Catalogue</p>
-          <p>Contact Us</p>
-        </div>
-
-        <div>
-          <h4>Message</h4>
-          <p>Thank you for visiting our site.</p>
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} PRV Bath Fittings</p>
         </div>
       </div>
-
-      <p style={{ textAlign: "center", marginTop: "40px", fontSize: "12px" }}>
-        © {new Date().getFullYear()} PRV Bath Fittings
-      </p>
     </footer>
   );
 };
