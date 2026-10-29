@@ -1,0 +1,33 @@
+.contact {
+  display: grid;
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.contact-title {
+  font-size: var(--text-3xl);
+}
+
+.contact-details {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+.contact-details dt {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brass-dark);
+}
+
+@media (min-width: 960px) {
+  .contact {
+    grid-template-columns: 1fr 1.6fr;
+    gap: var(--space-8);
+  }
+  .contact-intro {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-5));
+  }
+}

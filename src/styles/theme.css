@@ -17,6 +17,10 @@
   --color-footer: #202420;
   --color-footer-text: #f5f1e9;
   --color-focus: #80643a;
+  --color-error: #9b2c2c;
+  --color-error-bg: #fbeeee;
+  --color-success: #2f5d3a;
+  --color-success-bg: #eaf2ec;
 
   /* ---- Typography ---- */
   --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
