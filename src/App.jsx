@@ -3,6 +3,7 @@ import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 import Home from "./pages/Home";
 import Catalogue from "./pages/Catalogue";
+import ProductDetail from "./pages/ProductDetail";
 import Dealer from "./pages/Dealer";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalogue/:category" element={<Catalogue />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/dealer" element={<Dealer />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

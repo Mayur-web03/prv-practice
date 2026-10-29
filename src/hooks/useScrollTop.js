@@ -1,13 +1,20 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-// Scrolls to the top whenever the route changes.
+// On route change: jump to a #section if the link has one, otherwise to the top.
 const useScrollTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
+    if (hash) {
+      const target = document.getElementById(hash.slice(1));
+      if (target) {
+        target.scrollIntoView({ behavior: "instant" });
+        return;
+      }
+    }
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  }, [pathname]);
+  }, [pathname, hash]);
 };
 
 export default useScrollTop;
