@@ -1,0 +1,102 @@
+.dealer-list-section {
+  padding-top: var(--space-6);
+}
+
+.dealer-sample-note {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-stone);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.dealer-filters {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+@media (min-width: 640px) {
+  .dealer-filters {
+    grid-template-columns: 240px minmax(0, 360px);
+  }
+}
+
+.dealer-filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.dealer-filter label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.dealer-count {
+  margin-block: var(--space-5) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.dealer-grid {
+  display: grid;
+  gap: var(--space-4);
+  list-style: none;
+}
+@media (min-width: 700px) {
+  .dealer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1040px) {
+  .dealer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+.dealer-card {
+  height: 100%;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.dealer-name {
+  font-size: var(--text-xl);
+}
+
+.dealer-location {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-brass-dark);
+}
+
+.dealer-address {
+  margin-top: var(--space-3);
+  font-style: normal;
+}
+
+.dealer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+.dealer-links a {
+  color: var(--color-olive);
+  overflow-wrap: anywhere;
+}
+
+.dealer-empty {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
