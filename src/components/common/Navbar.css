@@ -9,6 +9,7 @@
   z-index: 1000;
   height: var(--header-height);
   color: var(--color-ink);
+  transition: color var(--motion-base) var(--ease-standard);
 }
 
 /* Background layers fade with opacity (cheap to animate) */
