@@ -119,7 +119,7 @@ export const FormAlert = ({ errors, serverError }) => {
   if (entries.length === 0 && !serverError) return null;
 
   return (
-    <div ref={focusOnMount} tabIndex={-1} role="alert" className="form-alert">
+    <div ref={focusOnMount} tabIndex={-1} role="alert" className="form-alert form-status">
       <p className="form-alert-title">
         {serverError ||
           (entries.length === 1
@@ -142,7 +142,7 @@ export const FormAlert = ({ errors, serverError }) => {
 };
 
 export const SuccessPanel = ({ title, children }) => (
-  <div ref={focusOnMount} tabIndex={-1} role="status" className="form-success">
+  <div ref={focusOnMount} tabIndex={-1} role="status" className="form-success form-status">
     <h3>{title}</h3>
     {children}
   </div>
