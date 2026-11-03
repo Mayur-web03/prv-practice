@@ -1,17 +1,22 @@
 import "./ProductCard.css";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, priority = false }) => {
   return (
-    <div className="product-card">
-      <div className="product-image">
-        <img src={product.image} alt={product.name} />
+    <article className="product-card">
+      <div className="product-media frame motion-media">
+        <img
+          src={product.image}
+          alt={product.name}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+        />
       </div>
 
       <div className="product-info">
-        <h3>{product.name}</h3>
-        <p className="price">{product.price}</p>
+        <h2 className="product-name">{product.name}</h2>
+        {product.price && <p className="product-price">{product.price}</p>}
       </div>
-    </div>
+    </article>
   );
 };
 
