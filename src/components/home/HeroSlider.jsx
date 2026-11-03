@@ -47,7 +47,7 @@ const slides = [
   },
 ];
 
-const AUTOPLAY_MS = 6500;
+const AUTOPLAY_MS = 10000; // change slide every 10 seconds
 
 const HeroSlider = () => {
   const [index, setIndex] = useState(0);
@@ -57,7 +57,6 @@ const HeroSlider = () => {
   const [playing, setPlaying] = useState(
     () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-  const [hovering, setHovering] = useState(false);
   const [focusWithin, setFocusWithin] = useState(false);
   const tabHidden = useTabHidden();
 
@@ -66,21 +65,20 @@ const HeroSlider = () => {
     setReach((r) => Math.max(r, Math.min(next + 1, slides.length - 1)));
   }, []);
 
-  // Auto-advance; pauses on hover, keyboard focus, background tab,
-  // or when the user pauses it
+  // Auto-advance every AUTOPLAY_MS. Pauses only on keyboard focus,
+  // a background tab, or when the user presses Pause.
+  // (Mouse hover no longer pauses it: a resting cursor made it look broken.)
   useEffect(() => {
-    if (!playing || hovering || focusWithin || tabHidden) return;
+    if (!playing || focusWithin || tabHidden) return;
     const id = setTimeout(() => goTo((index + 1) % slides.length), AUTOPLAY_MS);
     return () => clearTimeout(id);
-  }, [index, playing, hovering, focusWithin, tabHidden, goTo]);
+  }, [index, playing, focusWithin, tabHidden, goTo]);
 
   return (
     <section
       className="hero"
       aria-roledescription="carousel"
       aria-label="Featured collections"
-      onPointerEnter={(e) => e.pointerType === "mouse" && setHovering(true)}
-      onPointerLeave={() => setHovering(false)}
       onFocus={(e) => e.target.matches(":focus-visible") && setFocusWithin(true)}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocusWithin(false);
