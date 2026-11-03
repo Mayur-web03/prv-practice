@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import "./DealerCta.css";
+import Reveal from "../common/Reveal";
 
 const DealerCta = () => {
   return (
     <section className="section" aria-labelledby="dealer-cta-title">
-      <div className="container dealer-cta">
+      <Reveal className="container dealer-cta">
         <div>
           <span className="eyebrow">Dealers</span>
           <h2 id="dealer-cta-title" className="section-title">
@@ -24,7 +25,7 @@ const DealerCta = () => {
             Contact us
           </Link>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 };
