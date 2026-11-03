@@ -1,6 +1,6 @@
 /* =========================================================
-   Forms
-   ========================================================= */
+    Forms
+    ========================================================= */
 .form-card {
   padding: clamp(var(--space-5), 4vw, var(--space-7));
   background: var(--color-surface);
@@ -75,6 +75,7 @@
   font: inherit;
   font-size: 1rem;
   color: var(--color-ink);
+  transition: border-color var(--motion-fast) var(--ease-standard);
 }
 textarea.field-control {
   min-height: 130px;
@@ -97,6 +98,7 @@ textarea.field-control {
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-error);
+  animation: status-in var(--motion-base) var(--ease-standard) both;
 }
 .field-error::before {
   content: "⚠ ";
