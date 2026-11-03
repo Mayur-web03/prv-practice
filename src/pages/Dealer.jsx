@@ -1,12 +1,14 @@
 import "./Dealer.css";
 import DealerList from "../components/dealer/DealerList";
 import DealerApplicationForm from "../components/dealer/DealerApplicationForm";
+import Reveal from "../components/common/Reveal";
 
 const Dealer = () => {
   return (
     <>
       <title>Dealers | PRV Bath Fittings</title>
 
+      {/* Above the fold: intentionally NOT revealed, so it paints immediately */}
       <section className="page-offset dealer-intro">
         <div className="container">
           <span className="eyebrow">Dealers</span>
@@ -28,7 +30,7 @@ const Dealer = () => {
         aria-labelledby="apply-title"
       >
         <div className="container apply">
-          <div className="apply-intro">
+          <Reveal className="apply-intro">
             <span className="eyebrow">Partner with us</span>
             <h2 id="apply-title" className="section-title">
               Become a PRV dealer
@@ -37,8 +39,9 @@ const Dealer = () => {
               Tell us about your business. Our team reviews every application
               and contacts you using the details you provide.
             </p>
-          </div>
+          </Reveal>
 
+          {/* Form stays static: no animation between the user and typing */}
           <DealerApplicationForm />
         </div>
       </section>
