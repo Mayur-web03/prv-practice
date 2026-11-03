@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./DealerList.css";
 import dealers, { SAMPLE_DATA } from "../../data/dealers";
+import Reveal from "../common/Reveal";
 
 const cities = [...new Set(dealers.map((dealer) => dealer.city))].sort();
 
@@ -68,8 +69,10 @@ const DealerList = () => {
 
         {visible.length > 0 ? (
           <ul className="dealer-grid">
-            {visible.map((dealer) => (
-              <li key={dealer.id}>
+            {visible.map((dealer, index) => (
+              // Stable key: cards that stay visible while filtering do NOT
+              // re-animate; only cards that newly appear fade in.
+              <Reveal as="li" key={dealer.id} delay={(index % 3) * 70}>
                 <article className="dealer-card">
                   <h3 className="dealer-name">{dealer.name}</h3>
                   <p className="dealer-location">
@@ -81,7 +84,7 @@ const DealerList = () => {
                     <a href={`mailto:${dealer.email}`}>{dealer.email}</a>
                   </p>
                 </article>
-              </li>
+              </Reveal>
             ))}
           </ul>
         ) : (
