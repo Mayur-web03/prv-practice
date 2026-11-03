@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./HeroSlider.css";
+import useTabHidden from "../../hooks/usePageVisible";
 import slider1 from "../../assets/images/hero/slider1.png";
 import slider2 from "../../assets/images/hero/slider2.png";
 import slider3 from "../../assets/images/hero/slider3.png";
@@ -58,18 +59,20 @@ const HeroSlider = () => {
   );
   const [hovering, setHovering] = useState(false);
   const [focusWithin, setFocusWithin] = useState(false);
+  const tabHidden = useTabHidden();
 
   const goTo = useCallback((next) => {
     setIndex(next);
     setReach((r) => Math.max(r, Math.min(next + 1, slides.length - 1)));
   }, []);
 
-  // Auto-advance; pauses on hover, keyboard focus, or when the user pauses it
+  // Auto-advance; pauses on hover, keyboard focus, background tab,
+  // or when the user pauses it
   useEffect(() => {
-    if (!playing || hovering || focusWithin) return;
+    if (!playing || hovering || focusWithin || tabHidden) return;
     const id = setTimeout(() => goTo((index + 1) % slides.length), AUTOPLAY_MS);
     return () => clearTimeout(id);
-  }, [index, playing, hovering, focusWithin, goTo]);
+  }, [index, playing, hovering, focusWithin, tabHidden, goTo]);
 
   return (
     <section
