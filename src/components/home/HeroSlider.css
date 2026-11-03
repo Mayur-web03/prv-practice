@@ -22,6 +22,7 @@
     opacity var(--hero-fade) var(--ease-standard),
     visibility var(--hero-fade);
 }
+
 .hero-slide.is-active {
   z-index: 1;
   opacity: 1;
@@ -38,6 +39,7 @@
   transform: scale(1.05);
   transition: transform 7s linear;
 }
+
 .hero-slide.is-active .hero-image {
   transform: scale(1);
 }
@@ -91,22 +93,34 @@
   margin-top: var(--space-6);
 }
 
-/* Staggered reveal when a slide becomes active */
-.hero-copy > * {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--motion-slow) var(--ease-standard),
-    transform var(--motion-slow) var(--ease-standard);
+/* ---------- Staggered Reveal / Animations ---------- */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
+
 .hero-slide.is-active .hero-copy > * {
-  opacity: 1;
-  transform: none;
+  animation: hero-rise var(--motion-slow) var(--ease-standard) both;
 }
-.hero-slide.is-active .hero-copy > :nth-child(1) { transition-delay: 150ms; }
-.hero-slide.is-active .hero-copy > :nth-child(2) { transition-delay: 250ms; }
-.hero-slide.is-active .hero-copy > :nth-child(3) { transition-delay: 350ms; }
-.hero-slide.is-active .hero-copy > :nth-child(4) { transition-delay: 450ms; }
+
+.hero-slide.is-active .hero-copy > :nth-child(1) { animation-delay: 150ms; }
+.hero-slide.is-active .hero-copy > :nth-child(2) { animation-delay: 210ms; }
+.hero-slide.is-active .hero-copy > :nth-child(3) { animation-delay: 270ms; }
+.hero-slide.is-active .hero-copy > :nth-child(4) { animation-delay: 330ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide.is-active .hero-copy > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 
 /* ---------- Controls ---------- */
 .hero-controls {
@@ -136,9 +150,11 @@
   cursor: pointer;
   transition: background-color var(--motion-fast) var(--ease-standard);
 }
+
 .hero-pause:hover {
   background: rgba(20, 22, 20, 0.6);
 }
+
 .hero-pause svg {
   fill: currentColor;
 }
@@ -159,6 +175,7 @@
   border: 0;
   cursor: pointer;
 }
+
 .hero-dot::before {
   content: "";
   width: 8px;
@@ -169,9 +186,11 @@
     width var(--motion-base) var(--ease-standard),
     background-color var(--motion-fast) var(--ease-standard);
 }
+
 .hero-dot:hover::before {
   background: var(--color-ivory);
 }
+
 .hero-dot[aria-current="true"]::before {
   width: 28px;
   background: var(--color-ivory);
