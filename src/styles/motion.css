@@ -119,3 +119,8 @@
     transform: none !important;
   }
 }
+
+/* Disabled buttons (e.g. while a form is sending) must not "press" */
+.btn:disabled:active {
+  transform: none;
+}
