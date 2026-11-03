@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./InspirationSection.css";
 import room from "../../assets/images/categories/wellness.png";
+import Reveal from "../common/Reveal";
 
 const InspirationSection = () => {
   return (
@@ -9,16 +10,16 @@ const InspirationSection = () => {
       aria-labelledby="inspiration-title"
     >
       <div className="container inspiration">
-        <div className="inspiration-media frame">
+        <Reveal className="inspiration-media frame">
           <img
             src={room}
             alt="Freestanding bathtub beside a window with greenery"
             loading="lazy"
             decoding="async"
           />
-        </div>
+        </Reveal>
 
-        <div className="inspiration-copy">
+        <Reveal className="inspiration-copy" delay={100}>
           <span className="eyebrow">Inspiration</span>
           <h2 id="inspiration-title" className="section-title">
             Fittings that complete the room
@@ -31,7 +32,7 @@ const InspirationSection = () => {
           <Link to="/catalogue/bath-fittings" className="link-arrow">
             Browse bath fittings <span aria-hidden="true">→</span>
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
