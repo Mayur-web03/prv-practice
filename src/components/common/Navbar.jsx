@@ -3,9 +3,11 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/images/categories/logo.png";
 import SideMenu from "./SideMenu";
+import useScrolled from "../../hooks/useScrolled";
 import { productLinks, primaryLinks } from "../../data/navigation";
 
 const SCROLL_THRESHOLD = 40;
+const DESKTOP_QUERY = "(min-width: 960px)";
 
 const linkClass = ({ isActive }) => `nav-link${isActive ? " is-active" : ""}`;
 
@@ -13,18 +15,24 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
 
-  const [scrolled, setScrolled] = useState(() => window.scrollY > SCROLL_THRESHOLD);
+  // Shared hook: rAF-throttled, passive listener (replaces the inline effect)
+  const scrolled = useScrolled(SCROLL_THRESHOLD);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
 
   const toggleRef = useRef(null);
   const dropdownRef = useRef(null);
 
-  // Scrolled state (passive listener, only updates when the value changes)
+  // If the viewport grows to desktop while the drawer is open, close it.
+  // (Otherwise the hamburger disappears and the page stays scroll-locked.)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const mql = window.matchMedia(DESKTOP_QUERY);
+    const onChange = (e) => {
+      if (e.matches) setMenuOpen(false);
+    };
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
   }, []);
 
   // Close the Products dropdown on outside click or Escape
