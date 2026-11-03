@@ -1,17 +1,18 @@
+
 import ProductCard from "./ProductCard";
+import Reveal from "../common/Reveal";
 import "./ProductGrid.css";
 
 const ProductGrid = ({ products }) => {
   return (
     <div className="product-grid">
       {products.map((product, index) => (
-        <div
+        <Reveal
           key={product.id}
-          className="product-animate"
-          style={{ animationDelay: `${index * 0.12}s` }}
+          delay={(index % 4) * 70}
         >
           <ProductCard product={product} />
-        </div>
+        </Reveal>
       ))}
     </div>
   );
