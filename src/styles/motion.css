@@ -1,0 +1,121 @@
+/* =====================================================================
+   Phase 6.1 — Motion foundation
+   Import AFTER your global stylesheet. Remove duplicate tokens if
+   Phase 1 already defined them.
+   Rules: animate transform/opacity only (paint-only exceptions are tiny),
+   never hide content unless JS has confirmed it can reveal it.
+   ===================================================================== */
+
+:root {
+  --motion-fast: 180ms;
+  --motion-base: 260ms;
+  --motion-slow: 500ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ---------- 1. Scroll reveal ----------------------------------------
+   Hidden ONLY when <html class="motion-ready"> (added by initMotion()
+   when IntersectionObserver exists and reduced-motion is off).
+   No JS / reduced motion / observer failure => content stays visible. */
+.motion-ready .reveal {
+  transition:
+    opacity 450ms var(--ease-standard),
+    transform 450ms var(--ease-standard);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.motion-ready .reveal:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(16px); /* Y only: no horizontal overflow */
+}
+
+/* ---------- 2. Product card + image zoom ----------------------------
+   Add class "motion-card" to the card root and "motion-media" to the
+   image wrapper (the element that has a fixed aspect-ratio). */
+.motion-card {
+  transition:
+    transform var(--motion-base) var(--ease-standard),
+    border-color var(--motion-base) var(--ease-standard);
+}
+.motion-media {
+  overflow: hidden; /* zoom stays clipped, layout never shifts */
+}
+.motion-media img {
+  display: block;
+  transition: transform 350ms var(--ease-standard);
+}
+
+/* Hover only on devices that truly hover; keyboard focus gets the same. */
+@media (hover: hover) and (pointer: fine) {
+  .motion-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-brass, #b49a73);
+  }
+  .motion-card:hover .motion-media img {
+    transform: scale(1.03);
+  }
+}
+.motion-card:has(:focus-visible) {
+  border-color: var(--color-olive, #343b34);
+}
+.motion-card:has(:focus-visible) .motion-media img {
+  transform: scale(1.03);
+}
+
+/* ---------- 3. Text links: underline grows --------------------------- */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size var(--motion-fast) var(--ease-standard);
+}
+.link-underline:hover,
+.link-underline:focus-visible,
+.link-underline[aria-current="page"] {
+  background-size: 100% 1px;
+}
+
+/* ---------- 4. Buttons: tiny press feedback ------------------------- */
+.btn {
+  transition:
+    color var(--motion-fast) var(--ease-standard),
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* ---------- 5. Form feedback (success / error messages) --------------
+   Use on a status element: <p role="status" class="form-status">…</p>
+   Message text must stay meaningful without the animation. */
+@keyframes status-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+.form-status {
+  animation: status-in var(--motion-base) var(--ease-standard) both;
+}
+
+/* ---------- 6. Reduced motion — keep LAST ---------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .motion-card:hover,
+  .motion-card:hover .motion-media img {
+    transform: none !important;
+  }
+}
