@@ -1,20 +1,18 @@
-
 import ProductCard from "./ProductCard";
 import Reveal from "../common/Reveal";
 import "./ProductGrid.css";
 
 const ProductGrid = ({ products }) => {
   return (
-    <div className="product-grid">
+    <ul className="product-grid">
       {products.map((product, index) => (
-        <Reveal
-          key={product.id}
-          delay={(index % 4) * 70}
-        >
-          <ProductCard product={product} />
+        // Stagger by column (index % 4) so later rows never wait long
+        <Reveal as="li" key={product.id} delay={(index % 4) * 70}>
+          {/* First row is above the fold on most screens: load it eagerly */}
+          <ProductCard product={product} priority={index < 4} />
         </Reveal>
       ))}
-    </div>
+    </ul>
   );
 };
 
