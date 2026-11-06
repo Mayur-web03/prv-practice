@@ -304,3 +304,23 @@
     font-size: var(--text-sm);
   }
 }
+
+/* Append to the END of src/components/common/Navbar.css */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Desktop only; on mobile the Dealer Login link lives in the Footer */
+.navbar-login {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .navbar-login {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+}
