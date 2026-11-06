@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
 import { productLinks, primaryLinks } from "../../data/navigation";
+import DealerLoginLink from "./DealerLoginLink";
 
 const Footer = () => {
   return (
@@ -41,6 +42,9 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <DealerLoginLink className="footer-link" />
+              </li>
             </ul>
           </nav>
         </div>
