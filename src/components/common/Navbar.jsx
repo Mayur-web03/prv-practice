@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/images/categories/logo.png";
 import SideMenu from "./SideMenu";
+import DealerLoginLink from "./DealerLoginLink";
 import useScrolled from "../../hooks/useScrolled";
 import { productLinks, primaryLinks } from "../../data/navigation";
 
@@ -152,14 +153,17 @@ const Navbar = () => {
             ))}
           </nav>
 
-          <Link
-            to="/dealer"
-            className="btn btn--primary navbar-cta"
-            aria-label="Find a Dealer"
-          >
-            <span className="cta-long" aria-hidden="true">Find a Dealer</span>
-            <span className="cta-short" aria-hidden="true">Dealers</span>
-          </Link>
+          <div className="navbar-actions">
+            <DealerLoginLink className="nav-link navbar-login" />
+            <Link
+              to="/dealer"
+              className="btn btn--primary navbar-cta"
+              aria-label="Find a Dealer"
+            >
+              <span className="cta-long" aria-hidden="true">Find a Dealer</span>
+              <span className="cta-short" aria-hidden="true">Dealers</span>
+            </Link>
+          </div>
         </div>
       </header>
 
