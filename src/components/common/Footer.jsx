@@ -45,6 +45,12 @@ const Footer = () => {
               <li>
                 <DealerLoginLink className="footer-link" />
               </li>
+              {/* 👇 Yahan Staff & Admin Login link add kiya hai */}
+              <li>
+                <Link to="/admin/login" className="footer-link">
+                  Staff & Admin Login
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
