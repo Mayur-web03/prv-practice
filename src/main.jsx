@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./styles/theme.css"; // tokens first
 import "./index.css"; // base + shared primitives
 import "./styles/portal.css"; // dealer + admin portal styles
+import "./styles/orders.css";
 import App from "./App.jsx";
 import "./styles/motion.css";
 import initMotion from "./utils/initMotion";
