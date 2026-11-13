@@ -15,6 +15,9 @@ import PublicLayout from "./layouts/PublicLayout";
 import { DealerLayout, AdminLayout } from "./layouts/PortalLayouts";
 import LoginPage from "./pages/portal/LoginPage";
 import { DealerDashboard, AdminDashboard, Placeholder } from "./pages/portal/Dashboards";
+import NewOrder from "./pages/portal/NewOrder";
+import Orders from "./pages/portal/Orders";
+import OrderDetail from "./pages/portal/OrderDetail";
 
 const ScrollToTop = () => {
   useScrollTop();
@@ -51,9 +54,9 @@ function App() {
               }
             >
               <Route index element={<DealerDashboard />} />
-              <Route path="orders" element={<Placeholder title="My Orders" phase={3} />} />
-              <Route path="orders/new" element={<Placeholder title="Place New Order" phase={3} />} />
-              <Route path="orders/:id" element={<Placeholder title="Order detail" phase={3} />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="orders/new" element={<NewOrder />} />
+              <Route path="orders/:id" element={<OrderDetail />} />
               <Route path="billing" element={<Placeholder title="Billing & Dues" phase={5} />} />
               <Route path="invoices/:id" element={<Placeholder title="Invoice" phase={5} />} />
               <Route path="payments" element={<Placeholder title="Payments" phase={5} />} />
